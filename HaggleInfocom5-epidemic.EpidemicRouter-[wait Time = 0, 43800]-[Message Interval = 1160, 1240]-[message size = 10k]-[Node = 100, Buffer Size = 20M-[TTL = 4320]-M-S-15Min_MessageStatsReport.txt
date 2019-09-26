@@ -1,0 +1,20 @@
+Message stats for scenario HaggleInfocom5-epidemic.EpidemicRouter-[wait Time = 0, 43800]-[Message Interval = 1160, 1240]-[message size = 10k]-[Node = 100, Buffer Size = 20M-[TTL = 4320]-M-S-15Min
+sim_time: 274883.0000
+created: 211
+started: 10023
+relayed: 7903
+aborted: 2120
+dropped: 529
+removed: 0
+delivered: 196
+delivery_prob: 0.9289
+response_prob: 0.0000
+overhead_ratio: 39.3214
+latency_avg: 30533.5765
+latency_med: 19369.0000
+hopcount_avg: 4.3520
+hopcount_med: 4
+buffertime_avg: 226405.8998
+buffertime_med: 243673.0000
+rtt_avg: NaN
+rtt_med: NaN
