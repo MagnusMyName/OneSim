@@ -1,0 +1,93 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package report;
+
+import core.ConnectionListener;
+import core.DTNHost;
+import core.Message;
+import core.MessageListener;
+import core.Settings;
+import core.UpdateListener;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+/**
+ *
+ * @author Lenovo
+ */
+public class TotalContactReport extends Report implements UpdateListener, MessageListener, ConnectionListener {
+
+    private List<Message> tesMessage;
+    private int tesNumber;
+    private Map<Message, Integer> messageCount;
+
+    public TotalContactReport() {
+        super();
+        Settings s = getSettings();
+        tesMessage = new ArrayList<>();
+        messageCount = new HashMap<>();
+        tesNumber = 0;
+    }
+
+    @Override
+    public void updated(List<DTNHost> hosts) {
+    }
+
+    @Override
+    public void newMessage(Message m) {
+        tesNumber++;
+    }
+
+    @Override
+    public void messageTransferStarted(Message m, DTNHost from, DTNHost to) {
+    }
+
+    @Override
+    public void messageDeleted(Message m, DTNHost where, boolean dropped) {
+        int mCount = getMessageCount(m);
+        messageCount.put(m, mCount + 1);
+    }
+
+    @Override
+    public void messageTransferAborted(Message m, DTNHost from, DTNHost to) {
+    }
+
+    @Override
+    public void messageTransferred(Message m, DTNHost from, DTNHost to, boolean firstDelivery) {
+    }
+
+    @Override
+    public void hostsConnected(DTNHost host1, DTNHost host2) {
+    }
+
+    @Override
+    public void hostsDisconnected(DTNHost host1, DTNHost host2) {
+    }
+
+    public void done() {
+        write("Total report");
+//        write(tesNumber + " ");
+
+        for (Map.Entry<Message, Integer> entry : messageCount.entrySet()) {
+            Message key = entry.getKey();
+            Integer value = entry.getValue();
+            write("Message " + key + " has been called = " + value);
+        }
+
+        super.done();
+    }
+
+    private int getMessageCount(Message m) {
+        if (messageCount.containsKey(m)) {
+            return messageCount.get(m);
+        } else {
+            return 0;
+        }
+    }
+
+}
